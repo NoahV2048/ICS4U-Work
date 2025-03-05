@@ -1,7 +1,7 @@
 /* Noah Verdon
  * Spot It Game
  * Mar. 8, 2025
- */ //yooooooooooo
+ */
 
 import java.util.*;
 
@@ -10,7 +10,7 @@ public class SpotIt {
     public static int prime = 3; // prime number
     public static int score = 0; // reset score
     public static int[][] deck; // deck
-    public static String ESC = "\033[0m"; // reset Colors
+    public static String ESC = "\033[0m"; // reset formatting
     public static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -21,13 +21,14 @@ public class SpotIt {
         while (! quit) {
             // Options
 
-            System.out.println(col(31) + "Let's Play Spot It!" + ESC);
-            System.out.println("1. Play the Game");
-            System.out.println("2. View Rules");
-            System.out.println("3. View Score");
-            System.out.println("4. Quit");
-            System.out.print("\nOption: ");
-
+            System.out.println(bold(93) + "Let's Play Spot It!" + ESC);
+            System.out.printf("""
+                    1. Play the Game
+                    2. View Rules
+                    3. View Score
+                    4. Switch Items Per Card
+                    5. Quit
+                    \n%sOption: %s""", bold(34), ESC);
             int userInput = sc.nextInt();
             sc.nextLine();
             switch (userInput) {
@@ -42,6 +43,12 @@ public class SpotIt {
                     try {Thread.sleep(750);} catch (InterruptedException e) {}
                     break;
                 case 4:
+                    do {
+                        System.out.println("\nEnter a valid number one more than a prime: ");
+                        prime = sc.nextInt() - 1;
+                    } while (! checkPrime(prime)); // validation using prime sieve
+                    break;
+                case 5:
                     System.out.println("\nCome back soon!");
                     quit = true;
                     break;
@@ -53,7 +60,17 @@ public class SpotIt {
         sc.close();
     }
 
+    public static boolean checkPrime(int prime) {
+        return true;
+    }
+
     public static String col(int colorValue) {
+        // Return color switch
+        return "\033[" + colorValue + "m";
+    }
+
+    public static String bold(int colorValue) {
+        // Return bold color switch
         return "\033[1;" + colorValue + "m";
     }
 
